@@ -34,8 +34,8 @@ export default async function handle(
   limit.setDate(limit.getDate() + 3);
 
   if (localToken) {
-    const result = await prisma.loginAuth.findMany({
-      data: {
+    const result = await prisma.loginAuth.findFirst({
+      where: {
         token: encryptSha256(localToken!),
       },
     });
