@@ -39,7 +39,7 @@ export default async function handle(
         token: encryptSha256(localToken!),
       },
     });
-    return res.json(result);
+    return res.json(result!);
   } else {
     res.status(403).end();
   }
