@@ -36,7 +36,7 @@ export default async function handle(
   if (localToken) {
     const result = await prisma.loginAuth.findFirst({
       data: {
-        token: encryptSha256(localToken),
+        token: encryptSha256(localToken!),
       },
     });
     return res.json(result);
