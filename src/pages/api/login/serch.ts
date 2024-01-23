@@ -14,7 +14,6 @@ export default async function handle(
     };
   },
   res: {
-    status: any;
     json: (arg0: {
       id: number;
       token: string;
@@ -33,10 +32,36 @@ export default async function handle(
   let limit = new Date();
   limit.setDate(limit.getDate() + 3);
 
-  const result = await prisma.loginAuth.findFirst({
-    where: {
-      token: encryptSha256(localToken!),
-    },
-  });
-  return res.json(result!);
+  if (localToken) {
+    const result = await prisma.loginAuth.findFirst({
+      where: {
+        token: encryptSha256(localToken!),
+      },
+    });
+    if (result) {
+      return res.json(result!);
+    } else {
+      return res.json({
+        id: 0,
+        token: "",
+        user: "",
+        ip: "",
+        network: "",
+        locate: "",
+        login: "",
+        limit: "",
+      });
+    }
+  } else {
+    return res.json({
+      id: 0,
+      token: "",
+      user: "",
+      ip: "",
+      network: "",
+      locate: "",
+      login: "",
+      limit: "",
+    });
+  }
 }
