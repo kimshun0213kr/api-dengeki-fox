@@ -38,5 +38,18 @@ export default async function handle(
       token: encryptSha256(localToken!),
     },
   });
-  return res.json(result!);
+  if (result) {
+    return res.json(result!);
+  } else {
+    return res.json({
+      id: 0,
+      token: "",
+      user: "",
+      ip: "",
+      network: "",
+      locate: "",
+      login: "",
+      limit: "",
+    });
+  }
 }
